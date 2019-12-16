@@ -17,6 +17,10 @@ process.argv.forEach((val, index, array) => {
   }
 });
 
-let updateItemList = schedule.scheduleJob('* * 15 * * 3', () => {
-  tasks.updateItemList();
+let updateItemList = schedule.scheduleJob('* * 0 * * *', () => {
+  require('./lib/tasks/updateItemList')();
+});
+
+let updateHistogram = schedule.scheduleJob('* 0 */6 * * *', () => {
+  require('./lib/tasks/updateHistogram')();
 });
