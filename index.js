@@ -4,7 +4,6 @@ const colors = require('colors');
 
 //lib
 const db = require('./lib/db');
-const tasks = require('./lib/tasks');
 
 db.authenticate()
   .then(() => console.log("Databse connected...".green))
@@ -13,14 +12,14 @@ db.authenticate()
 process.argv.forEach((val, index, array) => {
   let regex = val.match(/(.*?)=(.*?)$/);
   if (regex != null && regex[1] == 'run') {
-    tasks(regex[2]);
+    require(`./lib/tasks/${regex[2]}`)();
   }
 });
 
-let updateItemList = schedule.scheduleJob('* * 0 * * *', () => {
-  require('./lib/tasks/updateItemList')();
+let updateItemList = schedule.scheduleJob('* 0 * * *', () => {
+  require('./lib/tasks')('updateItemList');
 });
 
-let updateHistogram = schedule.scheduleJob('* 0 */6 * * *', () => {
-  require('./lib/tasks/updateHistogram')();
+let updateHistogram = schedule.scheduleJob('* */6 * * *', () => {
+  require('./lib/tasks')('updateHistogram');
 });
