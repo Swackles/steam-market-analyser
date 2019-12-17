@@ -16,10 +16,10 @@ process.argv.forEach((val, index, array) => {
   }
 });
 
-let updateItemList = schedule.scheduleJob('* 0 * * *', () => {
+let updateItemList = schedule.scheduleJob('0 0 * * *', () => {
   require('./lib/tasks')('updateItemList');
 });
 
-let updateHistogram = schedule.scheduleJob('* */6 * * *', () => {
+let updateHistogram = schedule.scheduleJob('0 */6 * * *', () => {
   require('./lib/tasks')('updateHistogram');
 });
