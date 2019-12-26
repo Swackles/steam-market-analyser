@@ -12,7 +12,7 @@ db.authenticate()
 process.argv.forEach((val, index, array) => {
   let regex = val.match(/(.*?)=(.*?)$/);
   if (regex != null && regex[1] == 'run') {
-    require(`./lib/tasks/${regex[2]}`)();
+    require(`./lib/tasks`)(regex[2]);
   }
 });
 
