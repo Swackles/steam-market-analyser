@@ -1,0 +1,202 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.3 (Debian 11.3-1.pgdg90+1)
+-- Dumped by pg_dump version 11.3 (Debian 11.3-1.pgdg90+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: histograms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.histograms (
+    id integer NOT NULL,
+    buy_orders integer NOT NULL,
+    buy_order_price double precision NOT NULL,
+    buy_order_graph json NOT NULL,
+    sell_orders integer NOT NULL,
+    sell_order_price double precision NOT NULL,
+    sell_order_graph json NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    item_id integer NOT NULL
+);
+
+
+ALTER TABLE public.histograms OWNER TO postgres;
+
+--
+-- Name: histogram_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.histogram_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.histogram_id_seq OWNER TO postgres;
+
+--
+-- Name: histogram_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.histogram_id_seq OWNED BY public.histograms.id;
+
+
+--
+-- Name: items; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.items (
+    id integer NOT NULL,
+    name text,
+    name_id bigint,
+    hash_name text,
+    icon_url text,
+    icon_large_url text,
+    tradeable boolean,
+    marketable boolean,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone,
+    name_color text
+);
+
+
+ALTER TABLE public.items OWNER TO postgres;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.items_id_seq OWNER TO postgres;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
+
+
+--
+-- Name: task_logs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.task_logs (
+    id integer NOT NULL,
+    code_name text NOT NULL,
+    description text,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone,
+    status text NOT NULL
+);
+
+
+ALTER TABLE public.task_logs OWNER TO postgres;
+
+--
+-- Name: task_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.task_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.task_log_id_seq OWNER TO postgres;
+
+--
+-- Name: task_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.task_log_id_seq OWNED BY public.task_logs.id;
+
+
+--
+-- Name: histograms id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.histograms ALTER COLUMN id SET DEFAULT nextval('public.histogram_id_seq'::regclass);
+
+
+--
+-- Name: items id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.items ALTER COLUMN id SET DEFAULT nextval('public.items_id_seq'::regclass);
+
+
+--
+-- Name: task_logs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.task_logs ALTER COLUMN id SET DEFAULT nextval('public.task_log_id_seq'::regclass);
+
+
+--
+-- Name: histograms histogram_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.histograms
+    ADD CONSTRAINT histogram_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.items
+    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: task_logs task_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.task_logs
+    ADD CONSTRAINT task_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: histograms histogram_item; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.histograms
+    ADD CONSTRAINT histogram_item FOREIGN KEY (item_id) REFERENCES public.items(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

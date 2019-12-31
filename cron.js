@@ -1,6 +1,7 @@
 // node_modules
-const schedule = require('node-schedule');
+const cron = require('cron');
 const colors = require('colors');
+const express = require('express');
 
 //lib
 const db = require('./lib/db');
@@ -16,10 +17,10 @@ process.argv.forEach((val, index, array) => {
   }
 });
 
-let updateItemList = schedule.scheduleJob('0 0 * * *', () => {
+new cron.CronJob('0 0 * * *', () => {
   require('./lib/tasks')('updateItemList');
-});
+}, null, true, 'Europe/Tallinn');
 
-let updateHistogram = schedule.scheduleJob('0 */6 * * *', () => {
+new cron.CronJob('0 */1 * * *', () => {
   require('./lib/tasks')('updateHistogram');
-});
+}, null, true, 'Europe/Tallinn');

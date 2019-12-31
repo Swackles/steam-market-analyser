@@ -1,11 +1,13 @@
 {
   "name": "steam-market-analyser",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Analyses steam community market",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
     "web": "node ./bin/www",
+    "cron": "node cron.js",
+    "pm2_web": "pm2 start ./bin/www --name \"steam-market-web\"",
+    "pm2_cron": "pm2 start cron.js --name \"steam-market-cron\""
   },
   "repository": {
     "type": "git",
