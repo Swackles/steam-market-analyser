@@ -21,6 +21,6 @@ new cron.CronJob('0 0 * * *', () => {
   require('./lib/tasks')('updateItemList');
 }, null, true, 'Europe/Tallinn');
 
-new cron.CronJob('0 */1 * * *', () => {
+new cron.CronJob('0 0 * * *', () => {
   require('./lib/tasks')('updateHistogram');
 }, null, true, 'Europe/Tallinn');
