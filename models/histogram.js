@@ -12,7 +12,7 @@ const item = db.define('histogram', {
     type: Sequelize.INTEGER,
     allowNull: false,
     field: 'item_id',
-    references: 'item',
+    references: 'items',
     references_key: 'id'
   },
   buyOrders: {
