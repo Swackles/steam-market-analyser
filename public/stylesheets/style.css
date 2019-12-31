@@ -1,8 +1,37 @@
+/*
+ * background - #212121
+ * #323232
+ * primary color - #14ffec
+ */
+
+p, h2 {
+  color: #fff;
+}
+
 body {
-  padding: 50px;
+  background-color: #323232 !important;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+table {
+  margin: auto !important;
+  width: 75% !important;
+}
+
+.currency {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.box {
+  background-color: #212121;
+  border-radius: 25px;
+  padding: 15px;
+  margin: 15px 0px;
+}
+
+.box img {
+  width: 100%;
+  margin: auto;
 }

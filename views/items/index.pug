@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  h2.text-center Newest items
+  .container
+    .row
+      each item in items
+        .col-lg-4.col-md-6
+          .box(onclick=`window.location='items/${item.id}'`)
+            h3.text-center(style=`color: #${item.nameColor};`)= item.name
+            img.center-block(src=item.iconLargeUrl)
+            p.currency= (item.histogram == null ? "--.--" : item.histogram.sellOrderPrice) + ' €'
+            a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${item.hashName}`) Community market
+          

@@ -1,6 +1,6 @@
 {
   "name": "steam-market-analyser",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Analyses steam community market",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "debug": "~2.6.9",
     "delay": "^4.3.0",
     "express": "~4.16.0",
+    "express-paginate": "^1.0.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "pg": "^7.17.0",
