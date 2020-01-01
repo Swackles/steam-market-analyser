@@ -34,7 +34,7 @@ CREATE TABLE public.histograms (
     sell_order_graph json NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     created_at timestamp with time zone NOT NULL,
-    item_id integer NOT NULL
+    skin_id integer NOT NULL
 );
 
 
@@ -63,10 +63,10 @@ ALTER SEQUENCE public.histogram_id_seq OWNED BY public.histograms.id;
 
 
 --
--- Name: items; Type: TABLE; Schema: public; Owner: postgres
+-- Name: skins; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.items (
+CREATE TABLE public.skins (
     id integer NOT NULL,
     name text,
     name_id bigint,
@@ -81,13 +81,13 @@ CREATE TABLE public.items (
 );
 
 
-ALTER TABLE public.items OWNER TO postgres;
+ALTER TABLE public.skins OWNER TO postgres;
 
 --
--- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: skins_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.items_id_seq
+CREATE SEQUENCE public.skins_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -96,13 +96,13 @@ CREATE SEQUENCE public.items_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.items_id_seq OWNER TO postgres;
+ALTER TABLE public.skins_id_seq OWNER TO postgres;
 
 --
--- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: skins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
+ALTER SEQUENCE public.skins_id_seq OWNED BY public.skins.id;
 
 
 --
@@ -151,10 +151,10 @@ ALTER TABLE ONLY public.histograms ALTER COLUMN id SET DEFAULT nextval('public.h
 
 
 --
--- Name: items id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: skins id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.items ALTER COLUMN id SET DEFAULT nextval('public.items_id_seq'::regclass);
+ALTER TABLE ONLY public.skins ALTER COLUMN id SET DEFAULT nextval('public.skins_id_seq'::regclass);
 
 
 --
@@ -173,11 +173,11 @@ ALTER TABLE ONLY public.histograms
 
 
 --
--- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: skins skins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.items
-    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.skins
+    ADD CONSTRAINT skins_pkey PRIMARY KEY (id);
 
 
 --
@@ -189,11 +189,11 @@ ALTER TABLE ONLY public.task_logs
 
 
 --
--- Name: histograms histogram_item; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: histograms histogram_skin; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.histograms
-    ADD CONSTRAINT histogram_item FOREIGN KEY (item_id) REFERENCES public.items(id);
+    ADD CONSTRAINT histogram_skin FOREIGN KEY (skin_id) REFERENCES public.skins(id);
 
 
 --

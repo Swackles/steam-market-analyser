@@ -9,5 +9,19 @@ html
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/chart.min.js')
     script(src='/javascripts/bootstrap.min.js')
-  body
+  body 
+    nav.navbar.navbar-dark.bg-dark.navbar-expand-lg
+      a.navbar-brand(href='/skins') Steam Market Analyser
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNavDropdown' aria-controls='navbarNavDropdown' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+        
+      .collapse.navbar-collapse#navbarNavDropdown
+        ul.navbar-nav
+          each navItems, navIndex in navbar
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle(href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')= navIndex[0].toUpperCase() + navIndex.slice(1)
+              .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                each navItem in navItems
+                  a.dropdown-item(href='#')= navItem.name
+                
     block content

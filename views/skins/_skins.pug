@@ -1,7 +1,0 @@
-- let href = title == 'skins' ? `window.location='/skins/${skin.id}'` : '#'
-.box(onclick=href)
-  h4.text-center(style=`color: #${skin.nameColor};`)= skin.name
-  img.center-block(src=skin.iconLargeUrl)
-  p.currency= (skin.histogram == null ? "--.--" : skin.histogram.sellOrderPrice) + ' €'
-  .text-center
-    a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market

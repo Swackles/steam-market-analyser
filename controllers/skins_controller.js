@@ -15,7 +15,9 @@ router.get(['/'], async (req, res, next) => {
     console.log(skins[skins.indexOf(skin)]);
   }
 
-  res.render('skins/index', { title: 'skins', skins: skins});
+  let navbar = await require('../lib/layoutData')();
+
+  res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar});
 });
 
 router.get('/:id', async (req, res, next) => {
@@ -28,7 +30,6 @@ router.get('/:id', async (req, res, next) => {
     is[i] = skin[i];
   }
 
-  console.log(is)
   let orders = await db.query(`SELECT
     ARRAY(SELECT created_at from histograms where skin_id = ${skin.id} order by created_at) AS labels,
     ARRAY(SELECT buy_orders FROM histograms where skin_id = ${skin.id} order by created_at) AS buyOrders,
@@ -39,7 +40,12 @@ router.get('/:id', async (req, res, next) => {
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
   skin.histogram = histograms[0]
-  res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0]});
+
+  let navbar = await require('../lib/layoutData')();
+
+  console.log(navbar);
+
+  res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0], navbar: navbar});
 });
 
 module.exports = router;
