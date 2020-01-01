@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h2.text-center= item.name
+  .container
+    .row
+      if skins.length == 0
+        h5.text-center No Data Available
+      else
+        each skin in skins
+          .col-lg-4.col-md-6
+            include ./../skins/_skin
