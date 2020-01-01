@@ -37,9 +37,6 @@ const skin = db.define('skin', {
     type: Sequelize.TEXT,
     field: 'name_color'
   },
-  description: {
-    type: Sequelize.TEXT,
-  },
   createdAt: {
     type: Sequelize.DATE,
     field: 'created_at'
