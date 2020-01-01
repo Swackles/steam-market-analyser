@@ -18,7 +18,7 @@ process.argv.forEach((val, index, array) => {
 });
 
 new cron.CronJob('0 0 * * *', () => {
-  require('./lib/tasks')('updateItemList');
+  require('./lib/tasks')('updateSkinList');
 }, null, true, 'Europe/Tallinn');
 
 new cron.CronJob('0 * * * *', () => {

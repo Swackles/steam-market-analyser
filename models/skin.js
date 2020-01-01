@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./../lib/db');
 
-const item = db.define('item', {
+const skin = db.define('skin', {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -50,4 +50,4 @@ const item = db.define('item', {
   }
 });
 
-module.exports = item;
+module.exports = skin;

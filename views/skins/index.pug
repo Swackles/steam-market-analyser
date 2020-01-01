@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h2.text-center Newest skins
+  .container
+    .row
+      each skin in skins
+        .col-lg-4.col-md-6
+          include _skin
+          

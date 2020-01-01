@@ -1,18 +1,18 @@
 const Sequelize = require('sequelize');
 const db = require('./../lib/db');
 
-const item = db.define('histogram', {
+const histogram = db.define('histogram', {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  itemId: {
+  skinId: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    field: 'item_id',
-    references: 'items',
+    field: 'skin_id',
+    references: 'skins',
     references_key: 'id'
   },
   buyOrders: {
@@ -55,4 +55,4 @@ const item = db.define('histogram', {
   }
 });
 
-module.exports = item;
+module.exports = histogram;

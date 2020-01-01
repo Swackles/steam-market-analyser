@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./controllers/index_controller'));
-app.use('/items', require('./controllers/items_controller'));
+app.use('/skins', require('./controllers/skins_controller'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,86 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .col-lg-6.col-md-12
+        include _skin
+      .col-lg-6.col-md-12
+        .box
+          h4.text-center Information
+          
+          br
+          table.table
+            tr
+              td
+                h6.text-right Hash name:
+              td.text-left= skin.hashName
+            tr
+              td
+                h6.text-right Name ID:
+              td.text-left= skin.nameId
+            tr
+              td
+                h6.text-right Description:
+              td.text-left= skin.description || unavailable
+    .row
+      .box-chart.center
+        .row
+          .col-lg-6.col-md-12
+            h4.text-center Orders History
+            canvas(id='orderChart' width='200' height='100')
+          .col-lg-6.col-md-12
+            h4.text-center Price History
+            canvas(id='priceChart' width='200' height='100')
+        
+      script.
+        $(document).ready(() => {
+          new Chart($('#orderChart'), {
+            type: 'line',
+            data: {
+              labels: "#{orders.labels}".split(','),
+              datasets: [
+              {
+                label: "Buy Orders",
+                data: #{JSON.stringify(orders.buyorders)},
+                fill: 'start',
+                borderColor: "rgb(0, 255, 255)",
+                lineTension: 0.1
+              },
+              {
+                label: "Sell Orders",
+                data: #{JSON.stringify(orders.sellorders)},
+                fill: 'start',
+                borderColor: "rgb(102, 255, 51)",
+                lineTension: 0.1
+              }
+              ]
+            },
+            options: {},
+          });
+          
+          new Chart($('#priceChart'), {
+            type: 'line',
+            data: {
+              labels: "#{orders.labels}".split(','),
+              datasets: [
+              {
+                label: "Buy price",
+                data: #{JSON.stringify(orders.buyprice)},
+                fill: 'start',
+                borderColor: "rgb(0, 255, 255)",
+                lineTension: 0.1
+              },
+              {
+                label: "Sell price",
+                data: #{JSON.stringify(orders.sellprice)},
+                fill: 'start',
+                borderColor: "rgb(102, 255, 51)",
+                lineTension: 0.1
+              }
+              ]
+            },
+            options: {},
+          });
+        });
+      
