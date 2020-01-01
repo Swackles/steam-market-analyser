@@ -7,6 +7,7 @@ const db = require('./../lib/db');
 
 /* GET users listing. */
 router.get(['/'], async (req, res, next) => {
+  const navbar = await require('../lib/layoutData')();
   let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
 
   for (let skin of skins) {
@@ -15,12 +16,12 @@ router.get(['/'], async (req, res, next) => {
     console.log(skins[skins.indexOf(skin)]);
   }
 
-  let navbar = await require('../lib/layoutData')();
 
   res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar});
 });
 
 router.get('/:id', async (req, res, next) => {
+  const navbar = await require('../lib/layoutData')();
   let skin = await Skin.findOne({where: {id: req.params.id}});
   let histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
 
@@ -41,9 +42,6 @@ router.get('/:id', async (req, res, next) => {
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
   skin.histogram = histograms[0]
 
-  let navbar = await require('../lib/layoutData')();
-
-  console.log(navbar);
 
   res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0], navbar: navbar});
 });
