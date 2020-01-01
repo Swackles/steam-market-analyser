@@ -14,7 +14,8 @@ const gategory = db.define('gategory', {
   },
   createdAt: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    field: 'created_at'
   }
 });
 
