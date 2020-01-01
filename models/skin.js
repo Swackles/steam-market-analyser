@@ -8,6 +8,12 @@ const skin = db.define('skin', {
     primaryKey: true,
     autoIncrement: true
   },
+  itemId: {
+    type: Sequelize.INTEGER,
+    field: 'item_id',
+    references: 'items',
+    references_key: 'id'
+  },
   name: {
     type: Sequelize.TEXT,
   },
