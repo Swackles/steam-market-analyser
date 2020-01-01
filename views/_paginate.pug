@@ -2,10 +2,10 @@
 if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
   nav
     ul.pagination
-      li.page-item(class=`${paginate.hasPreviousPages ? "" : "disabled"}`)
+      li.page-skin(class=`${paginate.hasPreviousPages ? "" : "disabled"}`)
         a.page-link(href=paginate.href(true)) &laquo;
       each page in pages
-        li.page-item(class=`${paginate.page == page ? "active" : ""}`)
+        li.page-skin(class=`${paginate.page == page ? "active" : ""}`)
           a.page-link(href=page.url)= page.number
-      li.page-item(class=`${paginate.hasNextPages(pageCount) ? "" : "disabled"}`)
+      li.page-skin(class=`${paginate.hasNextPages(pageCount) ? "" : "disabled"}`)
         a.page-link(href=paginate.href()) Next

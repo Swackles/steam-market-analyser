@@ -4,8 +4,12 @@
  * primary color - #14ffec
  */
 
-p, h2 {
+h1, h2, h3, h4, h5, h6, p, td  {
   color: #fff;
+}
+
+td {
+  border-top: none !important;
 }
 
 body {
@@ -35,3 +39,10 @@ table {
   width: 100%;
   margin: auto;
 }
+
+.box-chart {
+  background-color: #212121;
+  border-radius: 25px;
+  padding: 15px;
+  margin: 15px 0px;
+  width: 100%;
