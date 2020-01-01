@@ -12,6 +12,11 @@ const gategory = db.define('gategory', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    field: 'updated_at'
+  },
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,

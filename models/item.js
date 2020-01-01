@@ -19,10 +19,14 @@ const item = db.define('item', {
     type: Sequelize.TEXT,
     allowNull: false
   },
+  updatedAt: {
+    type: Sequelize.DATE,
+    field: 'updated_at',
+  },
   createdAt: {
     type: Sequelize.DATE,
     field: 'created_at',
-  },
+  }
 });
 
 module.exports = item;
