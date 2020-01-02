@@ -13,14 +13,14 @@ db.authenticate()
 process.argv.forEach((val, index, array) => {
   let regex = val.match(/(.*?)=(.*?)$/);
   if (regex != null && regex[1] == 'run') {
-    require(`./lib/tasks`)(regex[2]);
+    require(`./lib/tasks/`)(regex[2]);
   }
 });
 
-new cron.CronJob('0 0 * * *', () => {
-  require('./lib/tasks')('updateSkinList');
+new cron.CronJob('0 0 * * *', async () => {
+  await require('./lib/tasks/')('updateSkinList');
 }, null, true, 'Europe/Tallinn');
 
-new cron.CronJob('0 */4 * * *', () => {
-  require('./lib/tasks')('updateHistogram');
+new cron.CronJob('0 * * * *', async () => {
+  await require('./lib/tasks/')('updateHistogram');
 }, null, true, 'Europe/Tallinn');
