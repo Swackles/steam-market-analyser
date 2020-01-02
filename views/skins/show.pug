@@ -21,8 +21,8 @@ block content
               td.text-left= skin.nameId
             tr
               td
-                h6.text-right Description:
-              td.text-left= skin.description || unavailable
+                h6.text-right Item:
+              td.text-left= item ? item.name : '--'
     .row
       .box-chart.center
         .row

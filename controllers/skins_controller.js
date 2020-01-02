@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Skin = require('../models/skin');
 const Histogram = require('../models/histogram');
+const Item = require('../models/item');
 const paginate = require('express-paginate');
 const db = require('./../lib/db');
 
@@ -26,6 +27,7 @@ router.get('/:id', async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
   let skin = await Skin.findOne({where: {id: req.params.id}});
   let histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
+  let item = await skin.getItemOffline();
 
   let is = {};
 
@@ -44,8 +46,7 @@ router.get('/:id', async (req, res, next) => {
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
   skin.histogram = histograms[0]
 
-
-  res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0], navbar: navbar});
+  res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0], navbar: navbar, item: item});
 });
 
 module.exports = router;

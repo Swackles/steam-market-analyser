@@ -56,6 +56,10 @@ const skin = db.define('skin', {
   }
 });
 
+skin.prototype.getItemOffline = async function() {
+  return await Item.findOne({where: {id: this.itemId}});
+}
+
 skin.prototype.getItem = async function(items = null, names = null) {
   if (this.itemId) return await Item.findOne({where: {id: this.itemId}});
 
