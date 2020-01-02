@@ -56,7 +56,7 @@ const skin = db.define('skin', {
   }
 });
 
-skin.getItem = async (items = null, names = null) => {
+skin.prototype.getItem = async function(items = null, names = null) {
   if (this.itemId) return await Item.findOne({where: {id: this.itemId}});
 
   if (items == null) items = await Item.findAll({});
