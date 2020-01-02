@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 const db = require('./../lib/db');
 
+const Item = require('./item');
+const AlternateNames = require('./alternateNames');
+
 const skin = db.define('skin', {
   id: {
     type: Sequelize.INTEGER,
@@ -52,5 +55,14 @@ const skin = db.define('skin', {
     field: 'updated_at'
   }
 });
+
+skin.getItem = async (items = null, names = null) => {
+  if (this.itemId) return await Item.findOne({where: {id: this.itemId}});
+
+  if (items == null) items = await Item.findAll({});
+  if (names == null) names = await AlternateNames.findAll({});
+
+  return await require('../lib/findItem')(this, items, names);
+}
 
 module.exports = skin;
