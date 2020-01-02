@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('./../lib/db');
 
 const Item = require('./item');
-const AlternateNames = require('./alternateNames');
+const AlternateNames = require('./alternateName');
 
 const skin = db.define('skin', {
   id: {
