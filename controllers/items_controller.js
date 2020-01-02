@@ -13,12 +13,12 @@ router.get('/:id', async (req, res, next) => {
 
   if (isNaN(req.params.id)) {
     if (req.params.id == 'unassaigned') {
-      skins = await Skin.findAll({where: {itemId: null}, limit: 50, order: [['created_at', 'ASC']]});
+      skins = await Skin.findAll({where: {itemId: null}, limit: 50, order: [['name', 'ASC']]});
       item = {};
       item.name = 'Unassaigned skins';
     } else return res.redirect('/skins');
   } else {
-    skins = await Skin.findAll({where: {itemId: req.params.id}, order: [['created_at', 'ASC']]});
+    skins = await Skin.findAll({where: {itemId: req.params.id}, order: [['name', 'ASC']]});
     item = await Item.findOne({where: {id: req.params.id}});
 
     for (let skin of skins) {
