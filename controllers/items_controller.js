@@ -23,8 +23,8 @@ router.get('/:id', async (req, res, next) => {
 
     for (let skin of skins) {
       let histogram = await Histogram.findOne({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
+
       skins[skins.indexOf(skin)].histogram = histogram;
-      console.log(skins[skins.indexOf(skin)]);
     }
   }
 

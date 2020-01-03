@@ -13,8 +13,10 @@ router.get(['/'], async (req, res, next) => {
 
   for (let skin of skins) {
     let histogram = await Histogram.findOne({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
+    let item = await Item.findOne({where: {id: skin.itemId}});
+
+    skins[skins.indexOf(skin)].item = histogram
     skins[skins.indexOf(skin)].histogram = histogram;
-    console.log(skins[skins.indexOf(skin)]);
   }
 
 
@@ -26,8 +28,11 @@ router.get('/:id', async (req, res, next) => {
 
   const navbar = await require('../lib/layoutData')();
   let skin = await Skin.findOne({where: {id: req.params.id}});
-  let histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
-  let item = await skin.getItemOffline();
+
+  skin.histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
+  skin.histogram = skin.histograms[0]
+
+  skin.item = await skin.getItemOffline();
 
   let is = {};
 
@@ -44,9 +49,8 @@ router.get('/:id', async (req, res, next) => {
 
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
-  skin.histogram = histograms[0]
 
-  res.render('skins/show', { title: skin.name, skin: skin, histograms: histograms, orders: orders[0][0], navbar: navbar, item: item});
+  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar});
 });
 
 module.exports = router;

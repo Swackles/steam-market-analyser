@@ -22,7 +22,7 @@ block content
             tr
               td
                 h6.text-right Item:
-              td.text-left= item ? item.name : '--'
+              td.text-left= skin.item ? skin.item.name : '--'
     .row
       .box-chart.center
         .row
@@ -34,6 +34,14 @@ block content
             canvas(id='priceChart' width='200' height='100')
         
       script.
+        let options =  {
+          elements: {
+              point:{
+                  radius: 2
+              }
+          }
+        };
+        
         $(document).ready(() => {
           new Chart($('#orderChart'), {
             type: 'line',
@@ -56,7 +64,7 @@ block content
               }
               ]
             },
-            options: {},
+            options:options,
           });
           
           new Chart($('#priceChart'), {
@@ -80,7 +88,7 @@ block content
               }
               ]
             },
-            options: {},
+            options: options,
           });
         });
       
