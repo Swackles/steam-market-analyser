@@ -20,6 +20,9 @@ const skin = db.define('skin', {
   name: {
     type: Sequelize.TEXT,
   },
+  description: {
+    type: Sequelize.TEXT,
+  },
   nameId: {
     type: Sequelize.TEXT,
     field: 'name_id'
