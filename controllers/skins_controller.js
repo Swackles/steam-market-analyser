@@ -7,7 +7,7 @@ const paginate = require('express-paginate');
 const db = require('./../lib/db');
 
 /* GET users listing. */
-router.get(['/'], async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
   let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
 
@@ -28,6 +28,7 @@ router.get('/:id', async (req, res, next) => {
 
   const navbar = await require('../lib/layoutData')();
   let skin = await Skin.findOne({where: {id: req.params.id}});
+  let items = await Item.findAll({});
 
   skin.histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
   skin.histogram = skin.histograms[0]
@@ -50,7 +51,13 @@ router.get('/:id', async (req, res, next) => {
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
 
-  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar});
+  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar, items: items});
+});
+
+router.post('/:id', async (req, res, next) => {
+  let skin = await Skin.update({itemId: req.body.itemId}, {where: {id: req.params.id}});
+
+  res.redirect(`/skins/${req.params.id}`);
 });
 
 module.exports = router;

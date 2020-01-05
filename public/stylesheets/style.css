@@ -4,8 +4,8 @@
  * primary color - #14ffec
  */
 
-h1, h2, h3, h4, h5, h6, p, td  {
-  color: #fff;
+h1, h2, h3, h4, h5, h6, p, td, pre  {
+  color: #fff !important;
 }
 
 td {
@@ -63,3 +63,14 @@ nav {
   padding: 15px;
   margin: 15px 0px;
   width: 100%;
+}
+
+.selectize-input, .selectize-dropdown, .btn-secondary, .optgroup-header {
+  background-color: #343a40 !important;
+  color: #fff !important;
+  border-color: #323232 !important;
+}
+
+.optgroup-header {
+  font-weight: bold;
+}
