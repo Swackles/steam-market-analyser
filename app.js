@@ -28,13 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./controllers/index_controller'));
-app.use('/skins', require('./controllers/skins_controller'));
-app.use('/items', require('./controllers/items_controller'));
+function controller(path) { return require(`./controllers/${path}_controller`); }
+
+app.use('/', controller('index'));
+app.use('/skins', controller('skins'));
+app.use('/items', controller('items'));
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404));
+app.use(async (req, res, next) => {
+  res.redirect('/');
 });
 
 // error handler

@@ -28,6 +28,9 @@ router.get('/:id', async (req, res, next) => {
 
   const navbar = await require('../lib/layoutData')();
   let skin = await Skin.findOne({where: {id: req.params.id}});
+
+  if (!skin) res.redirect('/');
+
   let items = await Item.findAll({});
 
   skin.histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});

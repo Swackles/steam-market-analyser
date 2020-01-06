@@ -26,5 +26,7 @@ html
               .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                 each navItem in navItems
                   a.dropdown-item(href=`/items/${navItem.id}`)= navItem.name
-                
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link(href='/skins/Unassaigned') Unassaigned
     block content
