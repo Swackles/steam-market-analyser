@@ -1,0 +1,7 @@
+.row
+  .col
+    .dropdown.right
+      button#filterDropdown.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Size
+      .dropdown-menu(aria-labelledby='filterDropdown')
+        a.dropdown-item(aria-label='Grid' onclick='return buildURL("size=s")') Small
+        a.dropdown-item(aria-label='Grid' onclick='return buildURL("size=l")') Large
