@@ -1,13 +1,14 @@
 - let href = title == 'skins' ? `window.location='/skins/${skin.id}'` : '#'
-.box
-  h4.text-center(style=`color: #${skin.nameColor};`)= skin.name
-  p.text-center
-    if skin.item 
-      a.badge.badge-light(href=`/items/${skin.item.id}`)= skin.item.name 
-    else if item
-      a.badge.badge-light(href=`items/${item.id}`)= item.name
-  a(href=`/skins/${skin.id}`)
-    img.center-block(src=skin.iconLargeUrl)
-  p.currency= (skin.histogram == null ? "--.--" : skin.histogram.sellOrderPrice) + ' €'
-  .text-center
-    a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market
+.col-lg-4.col-md-6
+  .box
+    h4.text-center(style=`color: #${skin.nameColor} !important;`)= skin.name
+    p.text-center
+      if skin.item 
+        a.badge.badge-light(href=`/items/${skin.item.id}`)= skin.item.name 
+      else if item
+        a.badge.badge-light(href=`items/${item.id}`)= item.name
+    a(href=`/skins/${skin.id}`)
+      img.center-block(src=skin.iconLargeUrl)
+    p.currency= (skin.histogram == null ? "--.--" : skin.histogram.sellOrderPrice) + ' €'
+    .text-center
+      a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market
