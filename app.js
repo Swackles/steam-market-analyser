@@ -33,6 +33,7 @@ function controller(path) { return require(`./controllers/${path}_controller`); 
 app.use('/', controller('index'));
 app.use('/skins', controller('skins'));
 app.use('/items', controller('items'));
+app.use('/inventory', controller('inventories'));
 
 // catch 404 and forward to error handler
 app.use(async (req, res, next) => {

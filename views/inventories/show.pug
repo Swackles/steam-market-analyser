@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  h2.text-center Inventory
+  br
+  .container
+    .row
+      .col
+        .search
+          .input-group
+            .input-group-prepend
+              .input-group-text SteamID64
+            input#steamId.form-control(type="text" value=`${steamId ? steamId : ''}`)
+          br
+          p.text-center
+            button.btn.btn-secondary(onclick='getInventory()') Submit
+      script.
+        function getInventory() {
+            window.location.replace(`/inventory/${$('#steamId')[0].value}`)
+        }
+    include ../_filters
+    if settings.size == "l"
+      include ../skins/_skin-large
+    else
+      include ../skins/_skin-small     
