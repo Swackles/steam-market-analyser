@@ -39,11 +39,11 @@ router.get('/:id', async (req, res, next) => {
   }
 
   let orders = await db.query(`SELECT
-    ARRAY(SELECT created_at from histograms where skin_id = ${skin.id} order by created_at) AS labels,
-    ARRAY(SELECT buy_orders FROM histograms where skin_id = ${skin.id} order by created_at) AS buyOrders,
-    ARRAY(SELECT sell_orders FROM histograms where skin_id = ${skin.id} order by created_at) AS sellOrders,
-    ARRAY(SELECT buy_order_price FROM histograms where skin_id = ${skin.id} order by created_at) AS buyprice,
-    ARRAY(SELECT sell_order_price FROM histograms where skin_id = ${skin.id} order by created_at) AS sellprice`);
+    ARRAY(SELECT created_at from histograms where skin_id = ${skin.id} AND created_at > current_date - interval '7 days' order by created_at) AS labels,
+    ARRAY(SELECT buy_orders FROM histograms where skin_id = ${skin.id} AND created_at > current_date - interval '7 days' order by created_at) AS buyOrders,
+    ARRAY(SELECT sell_orders FROM histograms where skin_id = ${skin.id} AND created_at > current_date - interval '7 days' order by created_at) AS sellOrders,
+    ARRAY(SELECT buy_order_price FROM histograms where skin_id = ${skin.id} AND created_at > current_date - interval '7 days' order by created_at) AS buyprice,
+    ARRAY(SELECT sell_order_price FROM histograms where skin_id = ${skin.id} AND created_at > current_date - interval '7 days' order by created_at) AS sellprice`);
 
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
