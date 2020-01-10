@@ -9,6 +9,6 @@
         a.badge.badge-light(href=`items/${item.id}`)= item.name
     a(href=`/skins/${skin.id}`)
       img.center-block(src=skin.iconLargeUrl)
-    p.currency= (skin.histogram == null ? "--.--" : skin.histogram.sellOrderPrice) + ' €'
+    p.currency= (skin.price == null ? "--.--" : skin.price) + ' €'
     .text-center
       a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market

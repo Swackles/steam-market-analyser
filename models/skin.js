@@ -11,6 +11,10 @@ const skin = db.define('skin', {
     primaryKey: true,
     autoIncrement: true
   },
+  price: {
+    type: Sequelize.DOUBLE,
+    allowNull: false
+  },
   itemId: {
     type: Sequelize.INTEGER,
     field: 'item_id',

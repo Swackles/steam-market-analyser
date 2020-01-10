@@ -17,10 +17,6 @@ router.get(['/', '/:id'], async (req, res, next) => {
     let skinNames = inventory.items.map(x => x.name);
 
     skins = await Skin.findAll({where: {name: skinNames}});
-
-    for (let skin of skins) {
-      skins[skins.indexOf(skin)].histogram = await Histogram.findOne({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
-    }
   }
 
   data = await settings(req.query);

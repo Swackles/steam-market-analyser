@@ -12,13 +12,10 @@ router.get('/', async (req, res, next) => {
   let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
 
   for (let skin of skins) {
-    let histogram = await Histogram.findOne({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
     let item = await Item.findOne({where: {id: skin.itemId}});
 
-    skins[skins.indexOf(skin)].item = histogram
-    skins[skins.indexOf(skin)].histogram = histogram;
+    skins[skins.indexOf(skin)].item = item;
   }
-
 
   res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar});
 });
@@ -32,9 +29,6 @@ router.get('/:id', async (req, res, next) => {
   if (!skin) res.redirect('/');
 
   let items = await Item.findAll({});
-
-  skin.histograms = await Histogram.findAll({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
-  skin.histogram = skin.histograms[0]
 
   skin.item = await skin.getItemOffline();
 

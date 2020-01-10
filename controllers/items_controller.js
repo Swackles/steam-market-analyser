@@ -23,12 +23,6 @@ router.get('/:id', async (req, res, next) => {
     if (!item) res.redirect('/');
 
     skins = await Skin.findAll({where: {itemId: req.params.id}, order: [['name', 'ASC']]});
-
-    for (let skin of skins) {
-      let histogram = await Histogram.findOne({where: {skinId: skin.id}, order: [['created_at', 'DESC']]});
-
-      skins[skins.indexOf(skin)].histogram = histogram;
-    }
   }
 
 
