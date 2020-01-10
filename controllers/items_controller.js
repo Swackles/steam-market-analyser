@@ -18,7 +18,7 @@ router.get('/:id', async (req, res, next) => {
       item.name = 'Unassaigned skins';
     } else return res.redirect('/skins');
   } else {
-    item = await Item.findOne({where: {id: req.params.id}});
+    item = await Item.findByPk(req.params.id)
 
     if (!item) res.redirect('/');
 

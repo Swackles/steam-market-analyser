@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
 
   for (let skin of skins) {
-    let item = await Item.findOne({where: {id: skin.itemId}});
+    let item = await Item.findByPk(skin.itemId)
 
     skins[skins.indexOf(skin)].item = item;
   }
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res, next) => {
   if (isNaN(req.params.id)) return res.redirect('/skins');
 
   const navbar = await require('../lib/layoutData')();
-  let skin = await Skin.findOne({where: {id: req.params.id}});
+  let skin = await Skin.findByPk(req.params.id)
 
   if (!skin) res.redirect('/');
 
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/:id', async (req, res, next) => {
-  let skin = await Skin.update({itemId: req.body.itemId}, {where: {id: req.params.id}});
+  let skin = await Skin.upsert({itemId: req.body.itemId}, {where: {id: req.params.id}});
 
   res.redirect(`/skins/${req.params.id}`);
 });

@@ -64,11 +64,11 @@ const skin = db.define('skin', {
 });
 
 skin.prototype.getItemOffline = async function() {
-  return await Item.findOne({where: {id: this.itemId}});
+  return await Item.findByPk(this.itemId)
 }
 
 skin.prototype.getItem = async function(items = null, names = null) {
-  if (this.itemId) return await Item.findOne({where: {id: this.itemId}});
+  if (this.itemId) return await Item.findByPk(this.itemId)
 
   if (items == null) items = await Item.findAll({});
   if (names == null) names = await AlternateNames.findAll({});
