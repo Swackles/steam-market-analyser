@@ -18,8 +18,13 @@ block content
         function getInventory() {
             window.location.replace(`/inventory/${$('#steamId')[0].value}`)
         }
-    include ../_filters
-    if settings.size == "l"
-      include ../skins/_skin-large
-    else
-      include ../skins/_skin-small     
+    if noUser
+      h4.center User dosen't exist
+    else if skins
+      include ../_filters
+      if settings.size == "l"
+        include ../skins/_skin-large
+      else
+        include ../skins/_skin-small
+    else 
+      h4.center This user dosen't have any skins

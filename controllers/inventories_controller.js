@@ -8,20 +8,24 @@ const Skin = require('../models/skin');
 /* GET home page. */
 router.get(['/', '/:id'], async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
-  let steamId, inventory, skins, data;
+  let steamId, inventory, skins, data, noUser;
 
   if (req.params.id) {
     steamId = req.params.id
 
-    inventory = await SteamMarket.getInventory(steamId, 252490);
-    let skinNames = inventory.items.map(x => x.name);
+    try {
+      inventory = await SteamMarket.getInventory(steamId, 252490);
+      let skinNames = inventory.items.map(x => x.name);
 
-    skins = await Skin.findAll({where: {name: skinNames}});
+      skins = await Skin.findAll({where: {name: skinNames}});
+    } catch(err) {
+      noUser = true
+    }
   }
 
   data = await settings(req.query);
 
-  res.render('inventories/show', { title: 'Inventory', navbar: navbar, steamId: steamId, skins: skins, settings: req.query });
+  res.render('inventories/show', { title: 'Inventory', navbar: navbar, steamId: steamId, skins: skins, settings: data, noUser: noUser });
 });
 
 module.exports = router;
