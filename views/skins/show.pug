@@ -37,7 +37,7 @@ block content
                     td
                       h6.text-right Description:
                     td
-                      #{skin.description}
+                      span(style="white-space: pre-line")= skin.description.split('<br>').join('\n')
               p.text-center
                 input#submit(type="submit" value="Save" hidden).btn.btn-secondary
           else
