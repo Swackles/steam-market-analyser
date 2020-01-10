@@ -22,8 +22,7 @@ const histogram = db.define('histogram', {
   },
   buyOrderPrice: {
     type: Sequelize.DOUBLE,
-    field: 'buy_order_price',
-    allowNull: false
+    field: 'buy_order_price'
   },
   buyOrderGraph: {
     type: Sequelize.JSON,
@@ -37,8 +36,7 @@ const histogram = db.define('histogram', {
   },
   sellOrderPrice: {
     type: Sequelize.DOUBLE,
-    field: 'sell_order_price',
-    allowNull: false
+    field: 'sell_order_price'
   },
   sellOrderGraph: {
     type: Sequelize.JSON,
