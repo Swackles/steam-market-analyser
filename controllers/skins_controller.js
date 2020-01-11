@@ -5,10 +5,13 @@ const Histogram = require('../models/histogram');
 const Item = require('../models/item');
 const paginate = require('express-paginate');
 const db = require('./../lib/db');
+const Settings = require('../lib/settings');
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
+  const settings = new Settings(req.query);
+
   let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
 
   for (let skin of skins) {
@@ -17,20 +20,20 @@ router.get('/', async (req, res, next) => {
     skins[skins.indexOf(skin)].item = item;
   }
 
-  res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar});
+  res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar, settings: settings});
 });
 
 router.get('/:id', async (req, res, next) => {
   if (isNaN(req.params.id)) return res.redirect('/skins');
 
   const navbar = await require('../lib/layoutData')();
+  const settings = new Settings(req.query);
+
   let skin = await Skin.findByPk(req.params.id)
 
   if (!skin) res.redirect('/');
 
-  let items = await Item.findAll({});
-
-  skin.item = await skin.getItemOffline();
+  skin.item = await Item.findByPk(skin.itemId);
 
   let is = {};
 
@@ -48,11 +51,11 @@ router.get('/:id', async (req, res, next) => {
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
 
-  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar, items: items});
+  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar, settings: settings});
 });
 
 router.post('/:id', async (req, res, next) => {
-  let skin = await Skin.upsert({itemId: req.body.itemId}, {where: {id: req.params.id}});
+  let skin = await Skin.update({itemId: req.body.itemId}, {where: {id: req.params.id}});
 
   res.redirect(`/skins/${req.params.id}`);
 });

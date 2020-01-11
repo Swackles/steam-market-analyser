@@ -1,9 +1,5 @@
-- let href = title == 'skins' ? `window.location='/skins/${skin.id}'` : '#'
-if skins
-  .row
-    each skin in skins
-      .col-lg-2.col-md-3.col.sm-4.col-6
-        .box-small
-          a(href=`/skins/${skin.id}`)
-            img.center-block(src=skin.iconUrl style=`border-color: #${skin.nameColor};`)
-          p.currency= (skin.price == null ? "--.--" : skin.price) + ' €'
+.col-lg-2.col-md-3.col.sm-4.col-6
+  .box-small
+    a(href=`/skins/${skin.id}`)
+      img.center-block(src=skin.iconUrl style=`border-color: #${skin.nameColor};`)
+    p.currency= (skin.price == null ? "--.--" : skin.price) + ' €'

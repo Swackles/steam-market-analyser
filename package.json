@@ -1,6 +1,6 @@
 {
   "name": "steam-market-analyser",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Analyses steam community market",
   "main": "index.js",
   "scripts": {

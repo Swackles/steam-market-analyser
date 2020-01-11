@@ -1,14 +1,9 @@
-- let href = title == 'skins' ? `window.location='/skins/${skin.id}'` : '#'
-.col-lg-4.col-md-6
-  .box
-    h4.text-center(style=`color: #${skin.nameColor} !important;`)= skin.name
-    p.text-center
-      if skin.item 
-        a.badge.badge-light(href=`/items/${skin.item.id}`)= skin.item.name 
-      else if item
-        a.badge.badge-light(href=`items/${item.id}`)= item.name
-    a(href=`/skins/${skin.id}`)
-      img.center-block(src=skin.iconLargeUrl)
-    p.currency= (skin.price == null ? "--.--" : skin.price) + ' €'
-    .text-center
-      a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market
+include ../_filters
+
+if skins
+  .row
+    each skin in skins
+      if settings.size == 's'
+        include _skin-small.pug
+      else if settings.size == 'l'
+        include _skin-large.pug

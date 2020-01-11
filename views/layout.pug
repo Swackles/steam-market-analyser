@@ -12,8 +12,9 @@ html
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/chart.min.js')
     script(src='/javascripts/bootstrap.min.js')
-    script(src='/javascripts/index.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js')
+    script(src="https://kit.fontawesome.com/8290fa2df8.js" crossorigin="anonymous")
+
   body 
     nav.navbar.navbar-dark.bg-dark.navbar-expand-lg
       a.navbar-brand(href='/skins') Steam Market Analyser
@@ -30,7 +31,7 @@ html
                   a.dropdown-item(href=`/items/${navItem.id}`)= navItem.name
         ul.navbar-nav
           li.nav-item
-            a.nav-link(href='/skins/Unassaigned') Unassaigned
+            a.nav-link(href='/items/unassaigned') Unassaigned
         ul.navbar-nav
           li.nav-item
             a.nav-link(href='/inventory') Inventory

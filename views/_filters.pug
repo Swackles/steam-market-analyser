@@ -1,7 +1,46 @@
 .row
   .col
-    .dropdown.right
-      button#filterDropdown.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Size
-      .dropdown-menu(aria-labelledby='filterDropdown')
-        a.dropdown-item(aria-label='Grid' onclick='return buildURL("size=s")') Small
-        a.dropdown-item(aria-label='Grid' onclick='return buildURL("size=l")') Large
+    .dropdown
+      button#filterSizeDropdown.float-right.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+        i.fas.fa-sort
+        = 'Order'
+      .dropdown-menu(aria-labelledby='filterSizeDropdown')
+        .dropdown-divider
+        h6.dropdown-header Price
+        a.dropdown-item(onclick='return buildURL("order", "price-desc")')
+          i.fas.fa-sort-amount-down
+          = 'Desc'
+        a.dropdown-item(onclick='return buildURL("order", "price-asc")')
+          i.fas.fa-sort-amount-down-alt
+          = 'Asc'
+          
+        .dropdown-divider
+        h6.dropdown-header Name
+        a.dropdown-item(onclick='return buildURL("order", "name-desc")')
+          i.fas.fa-sort-amount-down
+          = 'Desc'
+        a.dropdown-item(onclick='return buildURL("order", "name-asc")')
+          i.fas.fa-sort-amount-down-alt
+          = 'Asc'
+    .dropdown
+      button#filterSizeDropdown.float-right.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Size
+      .dropdown-menu(aria-labelledby='filterSizeDropdown')
+        a.dropdown-item(onclick='return buildURL("size", "l")')
+          i.fas.fa-th-large
+          = 'Large'
+        a.dropdown-item(onclick='return buildURL("size", "s")')
+          i.fas.fa-th
+          = 'Small'
+    
+    script.
+      function buildURL(key, value) {
+        let url = window.location.origin + window.location.pathname;
+      
+        let search = window.location.search.slice(1);
+      
+        let data = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+      
+        data[key] = value;
+        
+        window.location.href = url + '?' + $.param(data);
+      }
