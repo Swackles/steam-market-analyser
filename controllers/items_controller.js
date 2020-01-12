@@ -16,7 +16,7 @@ router.get('/:id', async (req, res, next) => {
 
   if (isNaN(req.params.id)) {
     if (req.params.id == 'unassaigned') {
-      skins = await Skin.findAll({where: {itemId: null}, limit: 50, order: [settings.order]});
+      skins = await Skin.findAll({limit: settings.limit, offset: settings.offset, where: {itemId: null}, limit: 50, order: [settings.order]});
       item = {};
       item.name = 'Unassaigned skins';
     } else return res.redirect('/skins');
@@ -25,11 +25,11 @@ router.get('/:id', async (req, res, next) => {
 
     if (!item) res.redirect('/');
 
-    skins = await Skin.findAll({where: {itemId: req.params.id}, order: [settings.order]});
+    skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, where: {itemId: req.params.id}, order: [settings.order]});
   }
+  settings.pageCount = Math.ceil(skins.count / settings.limit) - 1
 
-
-  res.render('items/show', { title: item.name, skins: skins, item: item, navbar: navbar, settings: settings});
+  res.render('items/show', { title: item.name, skins: skins.rows, item: item, navbar: navbar, settings: settings});
 });
 
 

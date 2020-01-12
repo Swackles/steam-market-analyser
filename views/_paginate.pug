@@ -1,11 +1,11 @@
-- console.log(paginate);
-if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+if paginate.hasPreviousPages || paginate.hasNextPages(settings.pageCount)
   nav
-    ul.pagination
-      li.page-skin(class=`${paginate.hasPreviousPages ? "" : "disabled"}`)
-        a.page-link(href=paginate.href(true)) &laquo;
-      each page in pages
-        li.page-skin(class=`${paginate.page == page ? "active" : ""}`)
-          a.page-link(href=page.url)= page.number
-      li.page-skin(class=`${paginate.hasNextPages(pageCount) ? "" : "disabled"}`)
-        a.page-link(href=paginate.href()) Next
+    ul.pagination.justify-content-center
+      li.page-item(class=`${paginate.hasPreviousPages ? '' : 'disabled'}`)
+        a.page-link(href=paginate.href(true))
+          span(aria-hidden="true") &laquo;
+          span.sr-only Previous
+      li.page-item(class=`${paginate.hasNextPages(settings.pageCount) ? '' : 'disabled'}`)
+        a.page-link(href=paginate.href())
+          span(aria-hidden="true") &raquo;
+          span.sr-only Next

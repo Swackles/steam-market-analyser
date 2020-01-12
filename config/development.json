@@ -5,5 +5,9 @@
     "password": "",
     "host": "localhost",
     "port": 10001
+  },
+  "paginate": {
+    "min": 10,
+    "max": 50
   }
 }

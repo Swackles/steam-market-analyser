@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const colors = require('colors');
 const paginate = require('express-paginate');
+const config = require('config')
 
 const db = require('./lib/db');
 
@@ -20,7 +21,7 @@ app.listen(10000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(paginate.middleware(10, 50));
+app.use(paginate.middleware(config.get('paginate.min'), config.get('paginate.max')));
 
 app.use(logger('dev'));
 app.use(express.json());

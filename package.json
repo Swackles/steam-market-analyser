@@ -34,6 +34,7 @@
     "pg-hstore": "^2.3.3",
     "pug": "^2.0.4",
     "sequelize": "^5.21.3",
+    "sequelize-paginate": "^1.1.6",
     "steam-market.js": "github:Swackles/steam-market.js#master"
   }
 }
