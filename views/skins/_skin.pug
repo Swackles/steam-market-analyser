@@ -1,9 +1,12 @@
+- let _skin = true; 
+
 include ../_filters
 
 if skins
-  .row
+  .d-flex.justify-content-center.flex-wrap
     each skin in skins
       if settings.size == 's'
         include _skin-small.pug
       else if settings.size == 'l'
         include _skin-large.pug
+include ../_paginate

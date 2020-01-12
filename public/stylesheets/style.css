@@ -49,7 +49,7 @@ nav {
   background-color: #212121;
   border-radius: 25px;
   padding: 15px;
-  margin: 15px 0px;
+  margin: 15px;
 }
 
 .box img {
@@ -57,12 +57,17 @@ nav {
   margin: auto;
 }
 
+.d-flex .box {
+  max-width: 280px;
+  max-height: 450px;
+}
+
 .box-small {
   background-color: #212121;
   border-radius: 25px;
-  width: 150px;
   padding: 12px;
   margin: 5px;
+  width: 130px;
 }
 
 .box-small img {
@@ -81,7 +86,7 @@ nav {
   background-color: #212121;
   border-radius: 25px;
   padding: 15px;
-  margin: 15px 0px;
+  margin: 15px;
   width: 100%;
 }
 
@@ -102,4 +107,18 @@ nav {
 
 i {
   margin-right: 5px;
+}
+
+.pagination {
+  margin-top: 50px;
+}
+
+.pagination .page-item .page-link {
+  background-color: #343a40 !important;
+  color: #fff !important;
+  border-color: #323232 !important;
+}
+
+.page-item.disabled .page-link{
+  color: #6c757d !important;
 }
