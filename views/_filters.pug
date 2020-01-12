@@ -38,8 +38,8 @@
       
         let search = window.location.search.slice(1);
       
-        let data = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
-      
+        let data = {};
+        if (search) data = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');      
         data[key] = value;
         
         window.location.href = url + '?' + $.param(data);

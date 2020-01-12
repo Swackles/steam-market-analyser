@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
-  let skins = await Skin.findAll({order: [['created_at', 'DESC']], limit: 12});
+  let skins = await Skin.findAll({order: [settings.order], limit: 12});
 
   for (let skin of skins) {
     let item = await Item.findByPk(skin.itemId)
