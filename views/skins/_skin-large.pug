@@ -1,5 +1,5 @@
-if _skin 
-  .box
+if _skin
+  .box.d-flex.flex-column
     h4.text-center(style=`color: #${skin.nameColor} !important;`)= skin.name
     p.text-center
       if skin.item 
@@ -13,7 +13,7 @@ if _skin
       a.btn.btn-dark(target="_blank" href=`https://steamcommunity.com/market/listings/252490/${skin.hashName}`) Community market
 else
   .col-lg-4.col-md-6
-    .box
+    .box.d-flex.flex-column
       h4.text-center(style=`color: #${skin.nameColor} !important;`)= skin.name
       p.text-center
         if skin.item 

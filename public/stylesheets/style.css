@@ -59,7 +59,6 @@ nav {
 
 .d-flex .box {
   max-width: 280px;
-  max-height: 450px;
 }
 
 .box-small {
@@ -121,4 +120,10 @@ i {
 
 .page-item.disabled .page-link{
   color: #6c757d !important;
+}
+
+.page-item.active .page-link {
+    z-index: 3 !important;
+    background-color: #212121 !important;
+    border-color: #212121 !important;
 }

@@ -26,18 +26,17 @@ router.get('/:id', async (req, res, next) => {
 
   if (typeof inventory != 'string') {
     let skinNames = inventory.items.map(x => x.name);
-    skins = await Skin.findAll({where: {name: skinNames}, order: [settings.order]});
+    skins = await Skin.findAndCountAll({where: {name: skinNames}, order: [settings.order]});
 
     items = skins.map(x => x.itemId);
     items = await Item.findAll({where: {id: items}, attributes: ['id', 'name']});
 
-    for (skin of skins) {
-      skins[skins.indexOf(skin)].item = items.find(x => x.id == skin.itemId);
+    for (skin of skins.rows) {
+      skins.rows[skins.rows.indexOf(skin)].item = items.find(x => x.id == skin.itemId);
     }
   } else if (typeof inventory == 'string') {
     error = inventory;
   }
-
 
   res.render('inventories/show', { title: 'Inventory', navbar: navbar, steamId: steamId, skins: skins, settings: settings, error: error});
 });

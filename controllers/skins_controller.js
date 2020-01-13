@@ -12,13 +12,15 @@ router.get('/', async (req, res, next) => {
   const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
-  let skins = await Skin.findAll({limit: settings.limit, offset: settings.offset, order: [settings.order], limit: 12});
+  let skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, order: [settings.order], limit: settings.limit});
 
-  for (let skin of skins) {
+  for (let skin of skins.rows) {
     let item = await Item.findByPk(skin.itemId)
 
-    skins[skins.indexOf(skin)].item = item;
+    skins.rows[skins.rows.indexOf(skin)].item = item;
   }
+
+  settings.pageCount = settings.getPageCount(skins.count);
 
   res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar, settings: settings});
 });

@@ -3,8 +3,10 @@
 include ../_filters
 
 if skins
+  br
+  p.text-right= `Showing ${settings.limit} of ${skins.count} skins`
   .d-flex.justify-content-center.flex-wrap
-    each skin in skins
+    each skin in skins.rows
       if settings.size == 's'
         include _skin-small.pug
       else if settings.size == 'l'

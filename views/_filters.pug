@@ -1,6 +1,24 @@
 .row
   .col
     .dropdown
+      button#filterSizeDropdown.float-right.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Size
+      .dropdown-menu(aria-labelledby='filterSizeDropdown')
+        a.dropdown-item(onclick='return buildURL("limit", "l0")')
+          i.fas.fa-th-large
+          = '10'
+        a.dropdown-item(onclick='return buildURL("limit", "20")')
+          i.fas.fa-th
+          = '20'
+        a.dropdown-item(onclick='return buildURL("limit", "30")')
+          i.fas.fa-th
+          = '30'
+        a.dropdown-item(onclick='return buildURL("limit", "40")')
+          i.fas.fa-th
+          = '40'
+        a.dropdown-item(onclick='return buildURL("limit", "50")')
+          i.fas.fa-th
+          = '50'
+    .dropdown
       button#filterSizeDropdown.float-right.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
         i.fas.fa-sort
         = 'Order'

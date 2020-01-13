@@ -5,6 +5,10 @@ if paginate.hasPreviousPages || paginate.hasNextPages(settings.pageCount)
         a.page-link(href=paginate.href(true))
           span(aria-hidden="true") &laquo;
           span.sr-only Previous
+      each page in settings.getArrayPages(2)
+        li.page-item(class=`${page == settings.page? 'active' : ''}`)
+          a.page-link(onclick=`return buildURL("page", "${page}")`)
+            span(aria-hidden="true")= page
       li.page-item(class=`${paginate.hasNextPages(settings.pageCount) ? '' : 'disabled'}`)
         a.page-link(href=paginate.href())
           span(aria-hidden="true") &raquo;
