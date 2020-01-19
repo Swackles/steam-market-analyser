@@ -1,3 +1,5 @@
+const Sequelize = require('Sequelize');
+const Op = Sequelize.Op;
 const express = require('express');
 const router = express.Router();
 const Skin = require('../models/skin');
@@ -23,6 +25,17 @@ router.get('/', async (req, res, next) => {
   settings.pageCount = settings.getPageCount(skins.count);
 
   res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar, settings: settings});
+});
+
+router.get('/search/:query', async (req, res, next) => {
+  const navbar = await require('../lib/layoutData')();
+  const settings = new Settings(req.query);
+
+  let skins = await Skin.findAndCountAll({where: { name: { [Op.like]: `%${req.params.query}%`}}, limit: settings.limit, offset: settings.offset});
+
+  settings.pageCount = settings.getPageCount(skins.count);
+
+  res.json(skins);
 });
 
 router.get('/:id', async (req, res, next) => {
