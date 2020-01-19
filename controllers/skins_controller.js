@@ -11,9 +11,14 @@ const Settings = require('../lib/settings');
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
-  const settings = new Settings(req.query);
+  let params = {
+    limit: res.locals.settings.limit,
+    offset: res.locals.settings.offset,
+    order: [res.locals.settings.order],
+    limit: res.locals.settings.limit
+  };
 
-  let skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, order: [settings.order], limit: settings.limit});
+  let skins = await Skin.findAndCountAll(params);
 
   for (let skin of skins.rows) {
     let item = await Item.findByPk(skin.itemId)
@@ -21,15 +26,20 @@ router.get('/', async (req, res, next) => {
     skins.rows[skins.rows.indexOf(skin)].item = item;
   }
 
-  settings.pageCount = settings.getPageCount(skins.count);
-
-  res.render('skins/index', { title: 'skins', skins: skins, settings: settings});
+  res.render('skins/index', { title: 'skins', skins: skins});
 });
 
 router.get('/search/:query', async (req, res, next) => {
-  const settings = new Settings(req.query);
+  let params = {
+    where: {
+      name: {
+        [Op.like]: `%${req.params.query}%`
+      }
+    },
+    limit: settings.limit,
+    offset: settings.offset}
 
-  let skins = await Skin.findAndCountAll({where: { name: { [Op.like]: `%${req.params.query}%`}}, limit: settings.limit, offset: settings.offset});
+  let skins = await Skin.findAndCountAll(params);
 
   settings.pageCount = settings.getPageCount(skins.count);
 
@@ -39,7 +49,6 @@ router.get('/search/:query', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   if (isNaN(req.params.id)) return res.redirect('/skins');
 
-  const settings = new Settings(req.query);
 
   let skin = await Skin.findByPk(req.params.id)
 
@@ -63,7 +72,7 @@ router.get('/:id', async (req, res, next) => {
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
 
-  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], settings: settings});
+  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0]});
 });
 
 router.post('/:id', async (req, res, next) => {

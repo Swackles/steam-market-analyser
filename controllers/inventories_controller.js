@@ -13,9 +13,7 @@ router.get(['/'], async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  const settings = new Settings(req.query);
   const steamId = req.params.id
-
 
   let inventory, skins, noUser, items, error;
 
@@ -23,6 +21,15 @@ router.get('/:id', async (req, res, next) => {
 
   if (typeof inventory != 'string') {
     let skinNames = inventory.items.map(x => x.name);
+
+    let params = {
+      limit: res.locals.settings.limit,
+      offset: res.locals.settings.offset,
+      order: [res.locals.settings.order],
+      limit: res.locals.settings.limit,
+      where: { name: skinNames }
+    };
+
     skins = await Skin.findAndCountAll({where: {name: skinNames}, order: [settings.order]});
 
     items = skins.map(x => x.itemId);
@@ -35,7 +42,7 @@ router.get('/:id', async (req, res, next) => {
     error = inventory;
   }
 
-  res.render('inventories/show', { title: 'Inventory', steamId: steamId, skins: skins, settings: settings, error: error});
+  res.render('inventories/show', { title: 'Inventory', steamId: steamId, skins: skins, error: error});
 });
 
 module.exports = router;

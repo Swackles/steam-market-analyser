@@ -23,6 +23,7 @@ app.set('view engine', 'pug');
 
 app.use(paginate.middleware(config.get('paginate.min'), config.get('paginate.max')));
 app.use(require('./lib/layoutData'));
+app.use(require('./lib/settings'));
 
 app.use(logger('dev'));
 app.use(express.json());

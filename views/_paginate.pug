@@ -1,15 +1,15 @@
-if paginate.hasPreviousPages || paginate.hasNextPages(settings.pageCount)
+if paginate.hasPreviousPages || paginate.hasNextPages(settings.pageCount(skins.count))
   nav
     ul.pagination.justify-content-center
       li.page-item(class=`${paginate.hasPreviousPages ? '' : 'disabled'}`)
         a.page-link(href=paginate.href(true))
           span(aria-hidden="true") &laquo;
           span.sr-only Previous
-      each page in settings.getArrayPages(2)
+      each page in settings.arrayPages(2)
         li.page-item(class=`${page == settings.page? 'active' : ''}`)
           a.page-link(onclick=`return buildURL("page", "${page}")`)
             span(aria-hidden="true")= page
-      li.page-item(class=`${paginate.hasNextPages(settings.pageCount) ? '' : 'disabled'}`)
+      li.page-item(class=`${paginate.hasNextPages(settings.pageCount(skins.count)) ? '' : 'disabled'}`)
         a.page-link(href=paginate.href())
           span(aria-hidden="true") &raquo;
           span.sr-only Next

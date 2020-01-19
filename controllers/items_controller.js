@@ -8,14 +8,19 @@ const paginate = require('express-paginate');
 const db = require('./../lib/db');
 
 router.get('/:id', async (req, res, next) => {
-  const settings = new Settings(req.query);
+  let item, skins;
 
-  let item;
-  let skins;
+  let params = {
+    limit: res.locals.settings.limit,
+    offset: res.locals.settings.offset,
+    order: [res.locals.settings.order],
+    limit: res.locals.settings.limit
+  };
 
   if (isNaN(req.params.id)) {
     if (req.params.id == 'unassaigned') {
-      skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, where: {itemId: null}, limit: settings.limit, order: [settings.order]});
+      params.where = { itemId: null };
+      skins = await Skin.findAndCountAll(params);
       item = {};
       item.name = 'Unassaigned skins';
     } else return res.redirect('/skins');
@@ -24,12 +29,11 @@ router.get('/:id', async (req, res, next) => {
 
     if (!item) res.redirect('/');
 
-    skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, where: {itemId: req.params.id}, order: [settings.order]});
+    params.where = { itemId: req.params.id }
+    skins = await Skin.findAndCountAll(params);
   }
 
-  settings.pageCount = settings.getPageCount(skins.count);
-
-  res.render('items/show', { title: item.name, skins: skins, item: item, settings: settings});
+  res.render('items/show', { title: item.name, skins: skins, item: item });
 });
 
 
