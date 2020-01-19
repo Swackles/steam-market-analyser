@@ -11,7 +11,6 @@ const Settings = require('../lib/settings');
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
-  const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
   let skins = await Skin.findAndCountAll({limit: settings.limit, offset: settings.offset, order: [settings.order], limit: settings.limit});
@@ -24,11 +23,10 @@ router.get('/', async (req, res, next) => {
 
   settings.pageCount = settings.getPageCount(skins.count);
 
-  res.render('skins/index', { title: 'skins', skins: skins, navbar: navbar, settings: settings});
+  res.render('skins/index', { title: 'skins', skins: skins, settings: settings});
 });
 
 router.get('/search/:query', async (req, res, next) => {
-  const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
   let skins = await Skin.findAndCountAll({where: { name: { [Op.like]: `%${req.params.query}%`}}, limit: settings.limit, offset: settings.offset});
@@ -41,7 +39,6 @@ router.get('/search/:query', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   if (isNaN(req.params.id)) return res.redirect('/skins');
 
-  const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
   let skin = await Skin.findByPk(req.params.id)
@@ -66,7 +63,7 @@ router.get('/:id', async (req, res, next) => {
   const months = ["Jan",	"Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   orders[0][0].labels = orders[0][0].labels.map(x => months[new Date(x).getMonth()] + " " + new Date(x).getDate() + " " + new Date(x).getHours() + ":00")
 
-  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], navbar: navbar, settings: settings});
+  res.render('skins/show', { title: skin.name, skin: skin, orders: orders[0][0], settings: settings});
 });
 
 router.post('/:id', async (req, res, next) => {

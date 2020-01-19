@@ -8,17 +8,14 @@ const Item = require('../models/item');
 
 /* GET home page. */
 router.get(['/'], async (req, res, next) => {
-  const navbar = await require('../lib/layoutData')();
 
-  res.render('inventories/show', { title: 'Inventory', navbar: navbar });
+  res.render('inventories/show', { title: 'Inventory' });
 });
 
 router.get('/:id', async (req, res, next) => {
-  const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
   const steamId = req.params.id
 
-  console.log(settings);
 
   let inventory, skins, noUser, items, error;
 
@@ -38,7 +35,7 @@ router.get('/:id', async (req, res, next) => {
     error = inventory;
   }
 
-  res.render('inventories/show', { title: 'Inventory', navbar: navbar, steamId: steamId, skins: skins, settings: settings, error: error});
+  res.render('inventories/show', { title: 'Inventory', steamId: steamId, skins: skins, settings: settings, error: error});
 });
 
 module.exports = router;

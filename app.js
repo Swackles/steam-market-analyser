@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const colors = require('colors');
 const paginate = require('express-paginate');
-const config = require('config')
+const config = require('config');
 
 const db = require('./lib/db');
 
@@ -22,6 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(paginate.middleware(config.get('paginate.min'), config.get('paginate.max')));
+app.use(require('./lib/layoutData'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,7 +44,6 @@ app.use(async (req, res, next) => {
 
 // error handler
 app.use(async (err, req, res, next) => {
-  let navbar = await require('./lib/layoutData')();
 
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -51,7 +51,7 @@ app.use(async (err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', {navbar: navbar});
+  res.render('error', {title: err.status});
 });
 
 module.exports = app;

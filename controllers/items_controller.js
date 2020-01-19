@@ -8,7 +8,6 @@ const paginate = require('express-paginate');
 const db = require('./../lib/db');
 
 router.get('/:id', async (req, res, next) => {
-  const navbar = await require('../lib/layoutData')();
   const settings = new Settings(req.query);
 
   let item;
@@ -30,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
 
   settings.pageCount = settings.getPageCount(skins.count);
 
-  res.render('items/show', { title: item.name, skins: skins, item: item, navbar: navbar, settings: settings});
+  res.render('items/show', { title: item.name, skins: skins, item: item, settings: settings});
 });
 
 
