@@ -36,12 +36,10 @@ router.get('/search/:query', async (req, res, next) => {
         [Op.like]: `%${req.params.query}%`
       }
     },
-    limit: settings.limit,
-    offset: settings.offset}
+    limit: res.locals.settings.limit,
+    offset: res.locals.settings.offset}
 
   let skins = await Skin.findAndCountAll(params);
-
-  settings.pageCount = settings.getPageCount(skins.count);
 
   res.json(skins);
 });
