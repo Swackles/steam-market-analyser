@@ -1,14 +1,20 @@
 - let _skin = true; 
 
-include ../_filters
+if settings.size != 'list'
+  include ../_filters
 
 if skins
-  br
-  p.text-right= `Showing ${settings.limit} of ${skins.count} skins`
+  if settings.size != 'list'
+    br
+    p.text-right= `Showing ${settings.limit} of ${skins.count} skins`
   .d-flex.justify-content-center.flex-wrap
     each skin in skins.rows
       if settings.size == 's'
         include _skin-small.pug
       else if settings.size == 'l'
         include _skin-large.pug
-include ../_paginate
+      else if settings.size == 'list'
+        include _skin-list.pug
+
+if settings.size != 'list'
+  include ../_paginate

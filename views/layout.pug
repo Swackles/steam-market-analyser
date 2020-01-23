@@ -15,6 +15,40 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js')
     script(src="https://kit.fontawesome.com/8290fa2df8.js" crossorigin="anonymous")
 
+    script.
+      $(document).ready(() => {
+        $('#searchField').selectize({
+          valueField: 'title',
+          labelField: 'title',
+          searchField: 'title',
+          options: [],
+          create: false,
+          render: {
+            option: (item, escape) => {
+              console.log(item);
+              console.log(escape);
+            }
+          },
+          load: (query, callback) => {
+            if (!query.length) return callback();
+            $.ajax({
+                url: `/skins/search/${query}`,
+                type: 'GET',
+                dataType: 'texh/html',
+                cache: false,
+                error: () => {
+                    console.log('err');
+                    callback();
+                },
+                success: (res) => {
+                    console.log(res);
+                    callback(res);
+                }
+            });
+          }
+        });
+      });
+      
   body 
     nav.navbar.navbar-dark.bg-dark.navbar-expand-lg
       a.navbar-brand(href='/skins') Steam Market Analyser
@@ -29,10 +63,12 @@ html
               .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                 each navItem in navItems
                   a.dropdown-item(href=`/items/${navItem.id}`)= navItem.name
-        ul.navbar-nav
           li.nav-item
             a.nav-link(href='/items/unassaigned') Unassaigned
-        ul.navbar-nav
           li.nav-item
             a.nav-link(href='/inventory') Inventory
+      form.form-inline.my-2.my-lg-0
+        input#searchField.form-control.mr-sm-2(type="search" placeholder="Search..." aria-label="Search" autocomplete='off')
+        
+      
     block content

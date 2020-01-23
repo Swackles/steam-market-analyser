@@ -81,6 +81,19 @@ nav {
   margin: 0px;
 }
 
+.box-list {
+  width: 100%;
+  background-color: #212121;
+  padding: 12px;
+}
+
+.box-list img {
+  width: 64px;
+  height: 64px;
+  border-radius: 25px:
+  padding: 6px
+}
+
 .box-chart {
   background-color: #212121;
   border-radius: 25px;

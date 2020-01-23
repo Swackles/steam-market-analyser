@@ -41,7 +41,9 @@ router.get('/search/:query', async (req, res, next) => {
 
   let skins = await Skin.findAndCountAll(params);
 
-  res.json(skins);
+  res.locals.settings.size = 'list';
+
+  res.render('skins/_skin', {skins: skins});
 });
 
 router.get('/:id', async (req, res, next) => {
